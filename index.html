@@ -1,0 +1,88 @@
+<html>
+<head>
+	<title>Vurtu SFX</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+	<style type="text/css">
+	body {
+		width: 100%;
+		font-family: verdana;
+		background-color: #040004
+	}
+	
+	figure.audio {
+		border: 1px solid #404749;
+		border-radius: 7px;
+		background-color: #F06533;
+		width: calc(100% - 30px);
+		margin: 1px 1px 10px 1px;
+		padding: 15px 5px;
+	}
+	
+	figure.audio.playing {
+		background-color: #AFCC17;
+	}
+	
+	figure div.countdown {
+		display: inline-block;
+		float: right
+	}
+	</style>
+</head>
+<body>
+	
+	<figure class="audio">
+		<div class="countdown">00:00</div>
+		<figcaption data-audio="audio/1.mp3">1- I Live Again</figcaption>
+		<audio src="audio/1.mp3"></audio>
+	</figure>
+	
+	<figure class="audio">
+		<div class="countdown">00:00</div>
+		<figcaption data-audio="audio/1.mp3">8- Electric Goat</figcaption>
+		<audio src="audio/8.mp3"></audio>
+	</figure>
+	
+	<script>
+		var playing = false;
+		
+		document.querySelector('body').addEventListener('click', (e) =>
+		{
+			if (e.target.nodeName === 'FIGCAPTION' && !playing)
+			{
+				playing = true;
+				
+				const audio = e.target.nextElementSibling,
+					  $timeleft = e.target.parentElement.children[0];
+					  
+				e.target.parentNode.classList.add('playing');
+				
+				audio.addEventListener('timeupdate', (e) => 
+				{
+					const duration = parseInt( audio.duration ),
+						  currentTime = parseInt( audio.currentTime ),
+						  timeLeft = duration - currentTime;
+						  
+					let s, m;
+					
+					s = timeLeft % 60;
+					m = Math.floor( timeLeft / 60 ) % 60;
+					
+					s = s < 10 ? "0"+s : s;
+					m = m < 10 ? "0"+m : m;
+					
+					$timeleft.innerHTML = m+":"+s;
+				});
+				
+				audio.addEventListener('ended', (e) => 
+				{
+					e.target.parentElement.classList.remove('playing');
+					playing = false;
+				});
+				
+				audio.play();
+			}
+		});
+	</script>
+</body>
+</html>
