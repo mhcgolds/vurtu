@@ -33,13 +33,25 @@
 	
 	<figure class="audio">
 		<div class="countdown">00:00</div>
-		<figcaption data-audio="audio/1.mp3">1- I Live Again</figcaption>
-		<audio src="audio/1.mp3"></audio>
+		<figcaption>1- I Live Again</figcaption>
+		<audio src="audio/1.mp3" webkit-playsinline="true" playsinline="true"></audio>
 	</figure>
 	
 	<figure class="audio">
 		<div class="countdown">00:00</div>
-		<figcaption data-audio="audio/1.mp3">8- Electric Goat</figcaption>
+		<figcaption>2- Satanic Banana Power</figcaption>
+		<audio src="audio/2.mp3"></audio>
+	</figure>
+	
+	<figure class="audio">
+		<div class="countdown">00:00</div>
+		<figcaption>7- Strange People</figcaption>
+		<audio src="audio/7.mp3"></audio>
+	</figure>
+	
+	<figure class="audio">
+		<div class="countdown">00:00</div>
+		<figcaption>8- Electric Goat</figcaption>
 		<audio src="audio/8.mp3"></audio>
 	</figure>
 	
@@ -80,7 +92,14 @@
 					playing = false;
 				});
 				
-				audio.play();
+				try 
+				{
+					audio.play();
+				}
+				catch (e)
+				{
+					window.alert(e);
+				}
 			}
 		});
 	</script>
